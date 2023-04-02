@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+    .video{
+        width: 30%;
+        margin: auto;
+      }
+      .indicator{
+        position: relative;
+        width: 100%;
+        height: 10px;
+        background-color: rgba(255, 0, 0, 0.391);
+ 
+      }
+      .bar{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 10px;
+        background-color: red;
+        transform: scale3d(0, 1, 1);
+        transform-origin: left;
+        z-index: -1;
+      }
+
+      .video video{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    </style>
+    <div class="video">
+     <video  draggable="false">
+      <source src="2TIWEB_Sykovaris_Dimitrios_BurgerKing.mp4" type="video/mp4">
+     </video>
+      
+
+      <div class="indicator"><div class="bar"></div> </div>
+      
+      <div class="txt"></div>
+      <div class="muted">Sond</div>
+    </div>
+
+
+   <script src="script.js"></script>
+</body>
+</html>
