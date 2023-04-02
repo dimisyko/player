@@ -1,11 +1,10 @@
 
 class player {
-    constructor({ el, timer, indicator, mute, fullScreen }) {
+    constructor({ el, timer, indicator, mute }) {
         this.el = el
         this.timer = timer
         this.indicator = indicator
         this.mute = mute
-        this.fullScreen = fullScreen
         this.state = false
         this.event()
     }
