@@ -1,8 +1,9 @@
 
 class player {
-    constructor({ el, timer, indicator, mute }) {
+    constructor({ el, timer, totalTime, indicator, mute }) {
         this.el = el
         this.timer = timer
+        this.totalTime = totalTime
         this.indicator = indicator
         this.mute = mute
         this.state = false
@@ -14,15 +15,19 @@ class player {
     condition(el) {
         return el < 10 ? `0${el} ` : `${el}`
     }
-    currentTime(){
-        const minutes = parseInt(this.el.currentTime / 60)
-        const secondes = parseInt(this.el.currentTime % 60) 
-        return this.timer.textContent = this.condition(minutes) + " : " + this.condition(secondes)
+    currentTime(el, time){
+        const minutes = parseInt(time / 60)
+        const secondes = parseInt(time % 60) 
+        return el.textContent = this.condition(minutes) + " : " + this.condition(secondes)
     }
     time() {
-        this.currentTime()
+        this.currentTime(this.timer, this.el.currentTime)
+        this.totalTimeVideo()
         const currentIndicator = this.el.currentTime / this.el.duration
         this.indicator.style.transform = "scale3d(" + currentIndicator + ", 1, 1)"
+    }
+    totalTimeVideo(){
+        this.currentTime(this.totalTime, this.el.duration)  
     }
     mouseDown(e) {
         this.state = true
@@ -34,7 +39,7 @@ class player {
         const clamp = Math.max(0, Math.min( drag, 1))
         this.el.currentTime = clamp * this.el.duration
         this.indicator.style.transform = "scale3d(" + clamp + ", 1, 1)"
-        this.currentTime()
+        this.currentTime(this.timer, this.el.currentTime)
     }
     mouseUp() {
         this.state = false
@@ -61,6 +66,7 @@ class player {
 new player({
     el: document.querySelector('video'),
     timer: document.querySelector('.txt'),
+    totalTime : document.querySelector('.total'),
     indicator: document.querySelector('.bar'),
     mute : document.querySelector('.muted')
 })
