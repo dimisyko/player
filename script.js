@@ -14,10 +14,13 @@ class player {
     condition(el) {
         return el < 10 ? `0${el} ` : `${el}`
     }
+    currentTime(){
+        const minutes = parseInt(this.el.currentTime / 60)
+        const secondes = parseInt(this.el.currentTime % 60) 
+        return this.timer.textContent = this.condition(minutes) + " : " + this.condition(secondes)
+    }
     time() {
-        const minutes = Math.trunc(this.el.currentTime / 60)
-        const secondes = Math.trunc(this.el.currentTime % 60)
-        this.timer.textContent = this.condition(minutes) + " : " + this.condition(secondes)
+        this.currentTime()
         const currentIndicator = this.el.currentTime / this.el.duration
         this.indicator.style.transform = "scale3d(" + currentIndicator + ", 1, 1)"
     }
@@ -31,6 +34,7 @@ class player {
         const clamp = Math.max(0, Math.min( drag, 1))
         this.el.currentTime = clamp * this.el.duration
         this.indicator.style.transform = "scale3d(" + clamp + ", 1, 1)"
+        this.currentTime()
     }
     mouseUp() {
         this.state = false
