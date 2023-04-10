@@ -31,11 +31,13 @@ class player {
     }
     mouseDown(e) {
         this.state = true
-        this.el.currentTime =  (e.clientX - this.indicator.getBoundingClientRect().left) / this.indicator.parentElement.getBoundingClientRect().width * this.el.duration
+        const downX = e.clientX || e.targetTouches[0].clientX
+        this.el.currentTime =  (downX - this.indicator.getBoundingClientRect().left) / this.indicator.parentElement.getBoundingClientRect().width * this.el.duration
     }
     mouseMove(e) {
         if (!this.state) return
-        const drag = (e.clientX - this.indicator.getBoundingClientRect().left) / this.indicator.parentElement.getBoundingClientRect().width
+        const moveX = e.clientX || e.targetTouches[0].clientX
+        const drag = (moveX - this.indicator.getBoundingClientRect().left) / this.indicator.parentElement.getBoundingClientRect().width
         const clamp = Math.max(0, Math.min( drag, 1))
         this.el.currentTime = clamp * this.el.duration
         this.indicator.style.transform = "scale3d(" + clamp + ", 1, 1)"
@@ -59,6 +61,9 @@ class player {
         this.indicator.parentElement.addEventListener('mousedown', this.mouseDown.bind(this))
         window.addEventListener('mousemove', this.mouseMove.bind(this))
         window.addEventListener('mouseup', this.mouseUp.bind(this))
+        this.indicator.parentElement.addEventListener('touchstart', this.mouseDown.bind(this))
+        window.addEventListener('touchmove', this.mouseMove.bind(this))
+        window.addEventListener('touchend', this.mouseUp.bind(this))
 
     }
 }
